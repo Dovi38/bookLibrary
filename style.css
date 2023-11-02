@@ -1,0 +1,238 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+:root {
+  --font-main: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+  font-family: var(--font-main);
+}
+
+.logo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 20px;
+  background-color: rgb(211, 209, 209);
+}
+
+.logo-part,
+.logo-text {
+  text-transform: capitalize;
+  font-weight: 600;
+}
+
+.logo img {
+  margin: 0 10px;
+}
+
+.button-area {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.description {
+  text-transform: capitalize;
+  font-size: 2rem;
+  padding: 20px 10px;
+}
+
+.add-btn {
+  background-color: #f0c838;
+  text-transform: capitalize;
+  padding: 10px 50px;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  font-size: 22px;
+  font-weight: 500;
+  border-radius: 30px;
+}
+
+.add-btn:hover {
+  transform: translateY(-2px);
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-template-rows: repeat(3, 1fr);
+  gap: 1rem;
+  border: 2px solid red;
+  margin-top: 30px;
+  min-height: 440px;
+
+}
+
+.card {
+  background: linear-gradient(60deg, rgb(94, 167, 94), rgb(236, 236, 122));
+  padding: 5px;
+  border-radius: 5%;
+  width: 220px;
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text {
+  padding: 6px;
+  text-transform: capitalize;
+}
+
+.change,
+.remove {
+  width: 5em;
+  padding: 8px;
+  margin: 5px;
+  border: none;
+  border-radius: 10px;
+}
+
+.active {
+  background-color: #2bcb19;
+}
+
+.unread {
+  background-color: red;
+}
+
+.modal-container {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  width: 300px;
+  height: 400px;
+  z-index: 3;
+  background-color: #fffefe;
+  border: 2px solid rgb(221, 218, 218);
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 4px 5px rgb(211, 210, 210);
+}
+
+input[type=text],
+[type=number] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+label {
+  font-size: 0.75rem;
+  padding: 12px 12px 12px 0;
+  text-transform: uppercase;
+  display: inline-block;
+}
+
+.input-btn {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+}
+
+.form-btn {
+  font-family: var(--font-main);
+  font-weight: 600;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: rgb(226, 163, 55);
+  text-transform: uppercase;
+  margin: 0 auto;
+}
+
+.checkboxes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  align-items: center;
+  margin-top: 10px;
+}
+
+.container {
+  display: block;
+  position: relative;
+  padding-left: 35px;
+  margin-bottom: 12px;
+  cursor: pointer;
+  font-size: 15px;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/*hiding browser's checkbox*/
+input[type=checkbox] {
+  position: absolute;
+  opacity: 0;
+  height: 0;
+  width: 0;
+}
+
+/*create checkbox*/
+.checkMark {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  height: 20px;
+  width: 20px;
+  background-color: #fffefe;
+  border: 2px solid rgb(187, 185, 185);
+  border-radius: 4px;
+}
+
+/* When the checkbox is checked, add a green background */
+.container input:checked~.checkMark {
+  background-color: #2bcb19;
+}
+
+.checkMark:after {
+  content: "";
+  position: absolute;
+  display: none;
+}
+
+/* Show the checkMark when checked */
+.container input:checked~.checkMark:after {
+  display: block;
+}
+
+/* Style the checkMark/indicator */
+.container .checkMark:after {
+  left: 5px;
+  top: 0;
+  width: 5px;
+  height: 10px;
+  border: solid white;
+  border-width: 0 3px 3px 0;
+  -webkit-transform: rotate(45deg);
+  -ms-transform: rotate(45deg);
+  transform: rotate(45deg);
+}
+
+
+@media screen and (max-width: 900px) {}

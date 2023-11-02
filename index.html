@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Objects</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <header>
+    <div class="logo">
+      <h2 class="logo-part">my</h2>
+      <img src="./images/open-book.png" alt="book">
+      <h2 class="logo-text">library</h2>
+    </div>
+  </header>
+  <main>
+    <section>
+      <div class="button-area">
+        <p class="description">add the book to library</p>
+        <button class="add-btn">new book</button>
+      </div>
+
+      <div class="cards-grid"></div>
+    </section>
+    <!--form need to make as modal div which pop up after button pressed-->
+    <section id="modal" class="modal-container">
+
+      <form action="#" method="post" class="form">
+        <div class="input-line">
+          <label for="title">title</label>
+          <input type="text" name="title" id="title" placeholder="Title" required>
+        </div>
+        <div class="input-line">
+          <label for="author">author</label>
+          <input type="text" name="author" id='author' placeholder="Author" required>
+        </div>
+        <div class="input-line">
+          <label for="number">pages</label>
+          <input type="number" name="pages" id="number" placeholder="Number" required>
+        </div>
+        <div class="checkboxes">
+          <label for="bookRead" class="container">
+            <input type="checkbox" id="bookRead" name="book" value="read">
+            <span class="checkMark"></span>
+            read
+          </label>
+          <label class="container">
+            <input type="checkbox" id="bookUnread" name="book" value="unread">
+            <span class="checkMark"></span>
+            not read
+          </label>
+        </div>
+        <div class="input-btn">
+          <button type="submit" class="form-btn">submit</button>
+        </div>
+
+      </form>
+
+    </section>
+  </main>
+  <!--<script src="script.js"></script>-->
+  <script src="main.js"></script>
+</body>
+
+</html>
