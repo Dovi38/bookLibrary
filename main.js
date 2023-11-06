@@ -9,6 +9,7 @@ const library = document.querySelector(".cards-grid");
 //All of your book objects are going to be stored in a simple array
 let myLibrary = [];
 let idCounter = 0;
+
 class Book {
   constructor(title, author, pages, status1) {
     //idCounter = idCounter + 1;
@@ -26,7 +27,7 @@ class Book {
     <h5 class='text'>"${this.title}"</h5>
     <p class='text'>By: ${this.author}</p>
     <p class='text'>Pages: ${this.pages}</p>
-    <button id=${this.id} class='change'>${this.status1}</button>
+    <button class='change'>${this.status1}</button>
     <button class='remove'>Delete</button>
     </div>`;
     return card;
@@ -58,7 +59,7 @@ const createBook = () => {
   let newBook = new Book(title, author, pages, status1);
   console.log(newBook);
   addBookToLibrary(newBook);
-  displayBook();
+  //displayBook();
   modal.style.visibility = "hidden";
 };
 //Write a function that loops through the array and displays each book on the page.
@@ -69,7 +70,11 @@ const displayBook = () => {
     //console.log(library);
   }
 };
-
+const allActions = () => {
+  createBook();
+  displayBook();
+  removeBook();
+};
 //Add a “NEW BOOK” button that brings up a form allowing users to input the details for the new book: author, title, number of pages, whether it’s been read and anything else you might want.
 const formVisible = () => {
   form.reset();
@@ -87,15 +92,29 @@ window.addEventListener("click", formHidden);
 //form submit event
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  createBook();
+  allActions();
   console.log(myLibrary);
-  let copyNew = [...myLibrary];
-  console.log(copyNew);
 });
 //remove book from the library with button
 //invoke this function inside buttons delete
-const removeBook = (id) => {
-  console.log(myLibrary);
-  myLibrary.filter((el) => el.id === id);
+const removeBook = () => {
+  console.log("im deleting");
+  const deleteBtn = document.querySelectorAll(".remove");
+  for (let i = 0; i < deleteBtn.length; i++) {
+    deleteBtn[i].addEventListener("click", () => {
+      let index = parseInt(deleteBtn[i].parentElement.getAttribute("id"));
+      console.log(index);
+      for (let book of myLibrary) {
+        console.log(book.id);
+        if (book.id === index) {
+          console.log(myLibrary);
+          const removeB = myLibrary.findIndex((item) => item.id === index);
+          myLibrary.splice(removeB, 1);
+          console.log(myLibrary);
+          displayBook();
+        }
+      }
+    });
+  }
 };
-removeBook();
+displayBook();
