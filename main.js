@@ -34,6 +34,9 @@ class Book {
   }
 }
 const generateId = () => {
+  if (myLibrary.length === 0) {
+    idCounter = 0;
+  }
   idCounter = idCounter + 1;
   return idCounter;
 };
@@ -59,7 +62,7 @@ const createBook = () => {
   let newBook = new Book(title, author, pages, status1);
   console.log(newBook);
   addBookToLibrary(newBook);
-  //displayBook();
+
   modal.style.visibility = "hidden";
 };
 //Write a function that loops through the array and displays each book on the page.
@@ -68,12 +71,12 @@ const displayBook = () => {
   for (let book of myLibrary) {
     library.innerHTML += book.cardHtml();
     //console.log(library);
+    addEventListenerOnButtons();
   }
 };
-const allActions = () => {
+const createDisplayBook = () => {
   createBook();
   displayBook();
-  removeBook();
 };
 //Add a “NEW BOOK” button that brings up a form allowing users to input the details for the new book: author, title, number of pages, whether it’s been read and anything else you might want.
 const formVisible = () => {
@@ -92,29 +95,47 @@ window.addEventListener("click", formHidden);
 //form submit event
 form.addEventListener("submit", (e) => {
   e.preventDefault();
-  allActions();
+  createDisplayBook();
   console.log(myLibrary);
 });
 //remove book from the library with button
-//invoke this function inside buttons delete
-const removeBook = () => {
+const removeBook = (cardId) => {
+  let bookId = myLibrary.findIndex((book) => book.id === cardId);
+  myLibrary.splice(bookId, 1);
+  console.log(myLibrary);
+
+  displayBook();
+};
+const addEventListenerOnButtons = () => {
+  const delButtons = document.querySelectorAll(".remove");
+  for (const delButton of delButtons) {
+    let cardId = parseInt(delButton.parentElement.getAttribute("id"));
+
+    delButton.addEventListener("click", () => {
+      removeBook(cardId);
+    });
+  }
+};
+//function onLoad
+
+/*const removeBook = () => {
   console.log("im deleting");
   const deleteBtn = document.querySelectorAll(".remove");
   for (let i = 0; i < deleteBtn.length; i++) {
     deleteBtn[i].addEventListener("click", () => {
-      let index = parseInt(deleteBtn[i].parentElement.getAttribute("id"));
-      console.log(index);
+      let cardId = parseInt(deleteBtn[i].parentElement.getAttribute("id"));
+      console.log(cardId);
       for (let book of myLibrary) {
         console.log(book.id);
-        if (book.id === index) {
+        if (book.id === cardId) {
           console.log(myLibrary);
-          const removeB = myLibrary.findIndex((item) => item.id === index);
-          myLibrary.splice(removeB, 1);
+          const bookId = myLibrary.findIndex((item) => item.id === cardId);
+          myLibrary.splice(bookId, 1);
           console.log(myLibrary);
           displayBook();
         }
       }
     });
   }
-};
-displayBook();
+};*/
+//displayBook();
