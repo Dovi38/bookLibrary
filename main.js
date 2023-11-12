@@ -6,14 +6,15 @@ const submitBtn = document.querySelector(".form-btn");
 const checkBoxes = document.querySelectorAll("input[name='book']");
 const library = document.querySelector(".cards-grid");
 
-//All of your book objects are going to be stored in a simple array
+//All of your book objects are stored in myLibrary array
 let myLibrary = [];
+
+//id counter set point
 let idCounter = 0;
 
+//book class
 class Book {
   constructor(title, author, pages, status1) {
-    //idCounter = idCounter + 1;
-    //this.id = idCounter;
     (this.title = title),
       (this.author = author),
       (this.pages = pages),
@@ -33,6 +34,7 @@ class Book {
     return card;
   }
 }
+//generates id for every new book
 const generateId = () => {
   if (myLibrary.length === 0) {
     idCounter = 0;
@@ -40,7 +42,11 @@ const generateId = () => {
   idCounter = idCounter + 1;
   return idCounter;
 };
-//status of book(loop through checkboxes)
+//makes Status string first letter capital
+const firstLetterCapital = (status) => {
+  return status[0].toUpperCase() + status.slice(1);
+};
+//status of book(loops through checkboxes)
 const bookStatus = () => {
   let status = "";
   checkBoxes.forEach((box) => {
@@ -48,38 +54,40 @@ const bookStatus = () => {
       status = box.value;
     }
   });
-  return status;
+  return firstLetterCapital(status);
 };
-//function to the script (not the constructor) that can take user’s input and store the new book objects into an array.
+//takes user’s input and store the new book objects into an array.
 const addBookToLibrary = (item) => myLibrary.push(item);
+
+//take all data from form
 const createBook = () => {
-  //take all data from form
   let title = document.querySelector("#title").value;
   let author = document.querySelector("#author").value;
   let pages = document.querySelector("#number").value;
-  let status1 = bookStatus(); //.toUpperCase();
+  let status1 = bookStatus();
 
   let newBook = new Book(title, author, pages, status1);
-  console.log(newBook);
+  //console.log(newBook);
   addBookToLibrary(newBook);
 
   modal.style.visibility = "hidden";
 };
-//Write a function that loops through the array and displays each book on the page.
+//loops through the array and displays each book on the page.
 const displayBook = () => {
-  library.innerHTML = ""; //because of it adds just one book at the time non repeating previous book.
+  //adds just one book at the time, not repeating previous book.
+  library.innerHTML = "";
   for (let book of myLibrary) {
     library.innerHTML += book.cardHtml();
-    //console.log(library);
     editButtonClicked();
-    addEventListenerOnButtons();
+    deleteButtonClicked();
   }
 };
+//two functions added to one.
 const createDisplayBook = () => {
   createBook();
   displayBook();
 };
-//Add a “NEW BOOK” button that brings up a form allowing users to input the details for the new book: author, title, number of pages, whether it’s been read and anything else you might want.
+//“NEW BOOK” button that brings up a form allowing users to input the details for the new book
 const formVisible = () => {
   form.reset();
   modal.style.visibility = "visible";
@@ -97,19 +105,18 @@ window.addEventListener("click", formHidden);
 form.addEventListener("submit", (e) => {
   e.preventDefault();
   createDisplayBook();
-  console.log(myLibrary);
 });
-//remove book from the library with button
+
+//remove book from the library with delete button
 const removeBook = (cardId) => {
   let bookId = myLibrary.findIndex((book) => book.id === cardId);
   myLibrary.splice(bookId, 1);
-  console.log(myLibrary);
-
+  //console.log(myLibrary);
   displayBook();
 };
-const addEventListenerOnButtons = () => {
-  const deleteBtns = document.querySelectorAll(".remove");
-  for (const deleteBtn of deleteBtns) {
+const deleteButtonClicked = () => {
+  const deleteButtons = document.querySelectorAll(".remove");
+  for (const deleteBtn of deleteButtons) {
     let cardId = parseInt(deleteBtn.parentElement.getAttribute("id"));
 
     deleteBtn.addEventListener("click", () => {
@@ -117,53 +124,23 @@ const addEventListenerOnButtons = () => {
     });
   }
 };
-//edit button changes the status value
-const editStatus = () => {
-  console.log(e.target);
-  //hrough myLibrary to change status there as well
-};
+//change book status from unread to read
 const editBookStatus = (cardId) => {
-  console.log(cardId);
   const editStatusIndex = myLibrary.findIndex((book) => book.id === cardId);
-  console.log(editStatusIndex);
-  console.log(myLibrary[editStatusIndex].status1);
-  if (myLibrary[editStatusIndex].status1 === "unread") {
-    myLibrary[editStatusIndex].status1 = "read";
-    //myLibrary[editStatusIndex].textContent = "read";
+  //console.log(myLibrary[editStatusIndex].status1);
+  if (myLibrary[editStatusIndex].status1 === "Unread") {
+    myLibrary[editStatusIndex].status1 = "Read";
     displayBook();
   }
 };
 
 const editButtonClicked = () => {
-  const editBtns = document.querySelectorAll(".change");
-  for (const editBtn of editBtns) {
+  const editButtons = document.querySelectorAll(".change");
+  for (const editBtn of editButtons) {
     let cardId = parseInt(editBtn.parentElement.getAttribute("id"));
-    console.log(cardId);
+    //console.log(cardId);
     editBtn.addEventListener("click", () => {
       editBookStatus(cardId);
     });
   }
 };
-//function onLoad
-
-/*const removeBook = () => {
-  console.log("im deleting");
-  const deleteBtn = document.querySelectorAll(".remove");
-  for (let i = 0; i < deleteBtn.length; i++) {
-    deleteBtn[i].addEventListener("click", () => {
-      let cardId = parseInt(deleteBtn[i].parentElement.getAttribute("id"));
-      console.log(cardId);
-      for (let book of myLibrary) {
-        console.log(book.id);
-        if (book.id === cardId) {
-          console.log(myLibrary);
-          const bookId = myLibrary.findIndex((item) => item.id === cardId);
-          myLibrary.splice(bookId, 1);
-          console.log(myLibrary);
-          displayBook();
-        }
-      }
-    });
-  }
-};*/
-//displayBook();
