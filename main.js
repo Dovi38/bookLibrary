@@ -71,6 +71,7 @@ const displayBook = () => {
   for (let book of myLibrary) {
     library.innerHTML += book.cardHtml();
     //console.log(library);
+    editButtonClicked();
     addEventListenerOnButtons();
   }
 };
@@ -107,12 +108,39 @@ const removeBook = (cardId) => {
   displayBook();
 };
 const addEventListenerOnButtons = () => {
-  const delButtons = document.querySelectorAll(".remove");
-  for (const delButton of delButtons) {
-    let cardId = parseInt(delButton.parentElement.getAttribute("id"));
+  const deleteBtns = document.querySelectorAll(".remove");
+  for (const deleteBtn of deleteBtns) {
+    let cardId = parseInt(deleteBtn.parentElement.getAttribute("id"));
 
-    delButton.addEventListener("click", () => {
+    deleteBtn.addEventListener("click", () => {
       removeBook(cardId);
+    });
+  }
+};
+//edit button changes the status value
+const editStatus = () => {
+  console.log(e.target);
+  //hrough myLibrary to change status there as well
+};
+const editBookStatus = (cardId) => {
+  console.log(cardId);
+  const editStatusIndex = myLibrary.findIndex((book) => book.id === cardId);
+  console.log(editStatusIndex);
+  console.log(myLibrary[editStatusIndex].status1);
+  if (myLibrary[editStatusIndex].status1 === "unread") {
+    myLibrary[editStatusIndex].status1 = "read";
+    //myLibrary[editStatusIndex].textContent = "read";
+    displayBook();
+  }
+};
+
+const editButtonClicked = () => {
+  const editBtns = document.querySelectorAll(".change");
+  for (const editBtn of editBtns) {
+    let cardId = parseInt(editBtn.parentElement.getAttribute("id"));
+    console.log(cardId);
+    editBtn.addEventListener("click", () => {
+      editBookStatus(cardId);
     });
   }
 };
