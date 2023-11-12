@@ -148,7 +148,6 @@ const btnEdit = () => {
         editMe = "read";
         editBtn[i].style.backgroundColor = "pink";
         editBtn[i].textContent = editMe;
-        //changes text content to read but need to update object status inside my library. Need id of changed button to change status.
         console.log(editBtn[i].textContent);
         console.log(editMe);
       } else {
